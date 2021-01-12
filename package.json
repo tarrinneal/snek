@@ -1,0 +1,30 @@
+{
+  "name": "puckman",
+  "version": "1.0.0",
+  "description": "puckman",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tarrinneal/puckman.git"
+  },
+  "author": "tarrinneal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tarrinneal/puckman/issues"
+  },
+  "homepage": "https://github.com/tarrinneal/puckman#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

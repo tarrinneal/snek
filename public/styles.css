@@ -1,0 +1,83 @@
+html, body, #app {
+}
+body {
+  background-color: rgb(69, 69, 69);
+  font-family: 'Goldman', 'Courier New', Courier, monospace;
+}
+#app {
+  border: white dotted;
+  height:800px;
+  width: 600px;
+  overflow: hidden;
+  margin: 0 auto;
+  background-color: #6545B2;
+}
+
+/*
+---------------logo----------------
+*/
+#logo {
+  font-size: 69px;
+  width: fit-content;
+  margin: 0 auto;
+  font-weight: bold;
+  color: white;
+  -webkit-text-fill-color: white;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: black;
+}
+/*
+---------------Buttons----------------
+*/
+.home-screen-housing {
+  display: grid;
+  grid-template-columns: repeat(3, 33%);
+  grid-template-rows: repeat(3, 33%);
+  height: 100%;
+  width: 100%;
+}
+.battle-start-button {
+  grid-column: 2;
+  grid-row: 2;
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  background-color: #538fbe;
+  padding: 20px 70px;
+  font-size: 52px !important;
+  border: 1px solid #2d6898;
+  background-image: linear-gradient(bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%);
+  background-image: -o-linear-gradient(bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%);
+  background-image: -moz-linear-gradient(bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%);
+  background-image: -webkit-linear-gradient(bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%);
+  background-image: -ms-linear-gradient(bottom, rgb(73,132,180) 0%, rgb(97,155,203) 100%);
+
+  background-image: -webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(0, rgb(73,132,180)),
+      color-stop(1, rgb(97,155,203))
+  );
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  text-shadow: 0px -1px 0px rgba(0,0,0,.5);
+  -webkit-box-shadow: 0px 6px 0px #2b638f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+  -moz-box-shadow: 0px 6px 0px #2b638f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+  box-shadow: 0px 6px 0px #2b638f, 0px 3px 15px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+}
+.button:hover {
+  cursor: pointer;
+}
+.button {
+  font-family: 'Goldman', 'Courier New', Courier, monospace;
+  font-size: larger;
+}
+/*
+---------------Canvas----------------
+*/
+canvas {
+  border: 1px solid black;
+}
