@@ -1,7 +1,7 @@
 {
-  "name": "puckman",
+  "name": "snek",
   "version": "1.0.0",
-  "description": "puckman",
+  "description": "snek",
   "main": "index.js",
   "directories": {
     "lib": "lib"
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tarrinneal/puckman.git"
+    "url": "git+https://github.com/tarrinneal/snek.git"
   },
   "author": "tarrinneal",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tarrinneal/puckman/issues"
+    "url": "https://github.com/tarrinneal/snek/issues"
   },
-  "homepage": "https://github.com/tarrinneal/puckman#readme",
+  "homepage": "https://github.com/tarrinneal/snek#readme",
   "dependencies": {
     "express": "^4.17.1"
   },

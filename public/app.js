@@ -1,74 +1,32 @@
-function draw() {
-  var canvas = document.getElementById('tutorial');
-  if (canvas.getContext) {
-    var ctx = canvas.getContext('2d');
+$(document).ready(function() {
 
+
+  var canvas = document.getElementById('myCanvas');
+  var ctx = canvas.getContext('2d');
+
+  var x = canvas.width/2;
+  var y = canvas.height-30;
+  var ballRadius = 10;
+
+  var dx = 2;
+  var dy = -2;
+
+
+  function drawBall() {
     ctx.beginPath();
-    ctx.moveTo(20, 20);
-    ctx.lineTo(240, 20);
-    ctx.lineTo(240, 100);
-    ctx.moveTo(300, 100);
-    ctx.lineTo(300, 100);
-    ctx.lineTo(300, 20);
-    ctx.lineTo(520, 20);
-    ctx.lineTo(520, 160);
-    ctx.lineTo(420, 160);
-    ctx.moveTo(520, 100);
-    ctx.lineTo(20, 100);
-    ctx.lineTo(20, 20);
-    ctx.moveTo(120, 160);
-    ctx.lineTo(20, 160);
-    ctx.lineTo(20, 100);
-    ctx.moveTo(180, 100);
-    ctx.lineTo(180, 160);
-    ctx.lineTo(240, 160);
-    ctx.lineTo(240, 220);
-    ctx.lineTo(360, 220);
-    ctx.lineTo(360, 400);
-    ctx.moveTo(360, 340);
-    ctx.lineTo(180, 340);
-    ctx.moveTo(180, 400);
-    ctx.lineTo(180, 220);
-    ctx.lineTo(240, 220);
-    ctx.moveTo(300, 220);
-    ctx.lineTo(300, 160);
-    ctx.lineTo(360, 160);
-    ctx.lineTo(360, 100);
-    ctx.moveTo(420, 20);
-    ctx.lineTo(420, 520);
-    ctx.moveTo(360, 280);
-    ctx.lineTo(520, 280);
-    ctx.moveTo(300, 460);
-    ctx.lineTo(300, 400);
-    ctx.lineTo(520, 400);
-    ctx.lineTo(520, 460);
-    ctx.lineTo(480, 460);
-    ctx.lineTo(480, 520);
-    ctx.moveTo(420, 520);
-    ctx.lineTo(520, 520);
-    ctx.lineTo(520, 580);
-    ctx.lineTo(20, 580);
-    ctx.lineTo(20, 520);
-    ctx.lineTo(120, 520);
-    ctx.lineTo(120, 20);
-    ctx.moveTo(20, 280);
-    ctx.lineTo(180, 280);
-    ctx.moveTo(60, 520);
-    ctx.lineTo(60, 460);
-    ctx.lineTo(20, 460);
-    ctx.lineTo(20, 400);
-    ctx.lineTo(240, 400);
-    ctx.lineTo(240, 460);
-    ctx.moveTo(120, 460);
-    ctx.lineTo(420, 460);
-    ctx.moveTo(180, 460);
-    ctx.lineTo(180, 520);
-    ctx.lineTo(240, 520);
-    ctx.lineTo(240, 580);
-    ctx.moveTo(300, 580);
-    ctx.lineTo(300, 520);
-    ctx.lineTo(360, 520);
-    ctx.lineTo(360, 460);
-    ctx.stroke();
+    ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
   }
-}
+
+  function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawBall();
+      x += dx;
+      y += dy;
+  }
+
+  setInterval(draw, 10);
+
+});
