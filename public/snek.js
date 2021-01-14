@@ -26,9 +26,8 @@ var playSnek = function() {
   var snakeWidth = 20;
   var snakeX = (canvas.width-snakeWidth) / 2;
   var snakeY = (canvas.height-snakeHeight) / 2 + 15;
-
-  var rightPressed = false;
-  var leftPressed = false;
+  var snakeDir = '';
+  var snakeMoved = 0;
 
   var score = 0;
 
@@ -60,6 +59,7 @@ var playSnek = function() {
     ctx.lineTo(540, 30);
     ctx.stroke();
 
+    snakeMoved = 0;
     snakeX += dx;
     snakeY += dy;
 
@@ -70,24 +70,44 @@ var playSnek = function() {
   }
 
   function keyDownHandler(e) {
-    if (e.key == "Right" || e.key == "ArrowRight") {
+    if (e.key == "Right" || e.key == "ArrowRight" && snakeDir !== 'Left' && snakeMoved === 0) {
       dx = 20;
       dy = 0;
-    } else if (e.key == "Left" || e.key == "ArrowLeft") {
+      snakeDir = 'Right';
+      snakeMoved = 1;
+    } else if (e.key == "Left" || e.key == "ArrowLeft" && snakeDir !== 'Right' && snakeMoved === 0) {
       dx = -20;
       dy = 0;
-    } else if (e.key == "Up" || e.key == "ArrowUp") {
+      snakeDir = 'Left';
+      snakeMoved = 1;
+    } else if (e.key == "Up" || e.key == "ArrowUp" && snakeDir !== 'Down' && snakeMoved === 0) {
       dx = 0;
       dy = -20;
-    } else if (e.key == "Down" || e.key == "ArrowDown") {
+      snakeDir = 'Up';
+      snakeMoved = 1;
+    } else if (e.key == "Down" || e.key == "ArrowDown" && snakeDir !== 'Up' && snakeMoved === 0) {
       dx = 0;
       dy = 20;
+      snakeDir = 'Down';
+      snakeMoved = 1;
     }
   }
 
 
   function collisionDetection() {
-
+    if (snakeY < y && snakeY + snakeHeight > y && snakeX + snakeWidth > x && snakeX < x) {
+      x = Math.floor(Math.random() * ((canvas.width - 20) / 20) + 1) * 20 - 10;
+      y = Math.floor(Math.random() * ((canvas.height - 30) / 20) + 1) * 20 + 20;
+      score += 10;
+    }
+    if (snakeY < 30 || snakeY >= canvas.height || snakeX >= canvas.width || snakeX < 0) {
+      alert("GAME OVER");
+      // document.location.reload();
+      clearInterval(interval);
+      $(document).ready(function() {
+        playSnek();
+      });
+    }
   }
 
   function drawScore() {
