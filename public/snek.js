@@ -101,7 +101,7 @@ var playSnek = function() {
       score += 10;
     }
     if (snakeY < 30 || snakeY >= canvas.height || snakeX >= canvas.width || snakeX < 0) {
-      alert("GAME OVER");
+      alert("GAME OVER! Score: " + score);
       // document.location.reload();
       clearInterval(interval);
       $(document).ready(function() {
