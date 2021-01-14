@@ -122,12 +122,20 @@ var playSnek = function() {
       snake.length++;
     }
     if (snake.y < 30 || snake.y >= canvas.height || snake.x >= canvas.width || snake.x < 0) {
-      alert("GAME OVER! Score: " + score);
-      clearInterval(interval);
-      $(document).ready(function() {
-        playSnek();
-      });
+      gameOver();
     }
+    for (let i = 2; i < snake.length; i++) {
+      if (snake.x === tail[i].x && snake.y === tail[i].y) {
+        gameOver();
+      }
+    }
+  }
+  function gameOver () {
+    alert("GAME OVER! Score: " + score);
+    clearInterval(interval);
+    $(document).ready(function() {
+      playSnek();
+    });
   }
 
   function drawScore() {
