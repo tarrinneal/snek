@@ -5,7 +5,6 @@ body {
   font-family: 'Goldman', 'Courier New', Courier, monospace;
 }
 #app {
-  height:700px;
   width: 540px;
   margin: auto;
 }
@@ -81,4 +80,5 @@ body {
 */
 canvas {
   border: 1px solid black;
+  margin: auto;
 }
