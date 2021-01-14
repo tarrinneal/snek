@@ -12,46 +12,28 @@ var playSnek = function() {
   var canvas = document.getElementById('myCanvas');
   var ctx = canvas.getContext('2d');
 
-  var x = canvas.width/2;
-  var y = canvas.height-30;
-  var ballRadius = 10;
+
+
+  var x = Math.floor(Math.random() * ((canvas.width - 20) / 20) + 1) * 20 - 10;
+  var y = Math.floor(Math.random() * ((canvas.height - 30) / 20) + 1) * 20 + 20;
+  var ballRadius = 5;
   var color = 'blue'
 
-  var dx = 2;
-  var dy = -2;
+  var dx = 0;
+  var dy = 0;
 
-  var paddleHeight = 10;
-  var paddleWidth = 75;
-  var paddleX = (canvas.width-paddleWidth) / 2;
+  var snakeHeight = 20;
+  var snakeWidth = 20;
+  var snakeX = (canvas.width-snakeWidth) / 2;
+  var snakeY = (canvas.height-snakeHeight) / 2 + 15;
 
   var rightPressed = false;
   var leftPressed = false;
-
-  var brickRowCount = 3;
-  var brickColumnCount = 5;
-  var brickWidth = 75;
-  var brickHeight = 20;
-  var brickPadding = 10;
-  var brickOffsetTop = 50;
-  var brickOffsetLeft = 60;
-  var bricks = [];
-  for(var c=0; c<brickColumnCount; c++) {
-    bricks[c] = [];
-    for(var r=0; r<brickRowCount; r++) {
-      bricks[c][r] = { x: 0, y: 0, status: 1 };
-    }
-  }
 
   var score = 0;
 
   var refresh = function() {
     document.location.reload();
-  }
-
-  function colorChange() {
-    var colors = ['red', 'blue', 'black', 'grey', 'green', 'yellow', 'brown', 'purple', 'orange'];
-    var random = Math.floor(Math.random() * colors.length);
-    color = colors[random];
   }
 
   function drawBall() {
@@ -62,125 +44,50 @@ var playSnek = function() {
     ctx.closePath();
   }
 
-  function drawPaddle() {
+  function drawSnake() {
     ctx.beginPath();
-    ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
+    ctx.rect(snakeX, snakeY, snakeWidth, snakeHeight);
     ctx.fillStyle = "#0095DD";
     ctx.fill();
     ctx.closePath();
   }
 
-  function drawBricks() {
-    for(var c=0; c<brickColumnCount; c++) {
-      for(var r=0; r<brickRowCount; r++) {
-        if(bricks[c][r].status == 1) {
-          var brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
-          var brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
-          bricks[c][r].x = brickX;
-          bricks[c][r].y = brickY;
-          ctx.beginPath();
-          ctx.rect(brickX, brickY, brickWidth, brickHeight);
-          ctx.fillStyle = "#0095DD";
-          ctx.fill();
-          ctx.closePath();
-        }
-      }
-    }
-  }
-
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    x += dx;
-    y += dy;
+    ctx.beginPath();
+    ctx.moveTo(0, 30);
+    ctx.lineTo(540, 30);
+    ctx.stroke();
 
-    if(x > paddleX && x < paddleX + paddleWidth && y + ballRadius >= canvas.height - paddleHeight) {
-      dy = -dy;
-    }
-
-    if (y + dy < ballRadius) {
-      dy = -dy;
-      colorChange()
-    } else if (y + dy > canvas.height - ballRadius) {
-      alert("GAME OVER");
-      // document.location.reload();
-      clearInterval(interval);
-      $(document).ready(function() {
-        playSnek();
-      });
-
-    }
-    if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
-      dx = -dx;
-      colorChange()
-    }
-    if (rightPressed) {
-      paddleX += 7;
-      if (paddleX + paddleWidth > canvas.width) {
-        paddleX = canvas.width - paddleWidth;
-      }
-    } else if (leftPressed) {
-      paddleX -= 7;
-      if (paddleX < 0) {
-        paddleX = 0;
-      }
-    }
+    snakeX += dx;
+    snakeY += dy;
 
     drawBall();
-    drawPaddle();
-    drawBricks();
+    drawSnake();
     collisionDetection();
     drawScore();
   }
 
-  function keyUpHandler(e) {
-    if (e.key == "Right" || e.key == "ArrowRight") {
-        rightPressed = false;
-    }
-    else if (e.key == "Left" || e.key == "ArrowLeft") {
-        leftPressed = false;
-    }
-  }
-
-
   function keyDownHandler(e) {
     if (e.key == "Right" || e.key == "ArrowRight") {
-      rightPressed = true;
+      dx = 20;
+      dy = 0;
     } else if (e.key == "Left" || e.key == "ArrowLeft") {
-      leftPressed = true;
+      dx = -20;
+      dy = 0;
+    } else if (e.key == "Up" || e.key == "ArrowUp") {
+      dx = 0;
+      dy = -20;
+    } else if (e.key == "Down" || e.key == "ArrowDown") {
+      dx = 0;
+      dy = 20;
     }
   }
 
-  function keyUpHandler(e) {
-    if(e.key == "Right" || e.key == "ArrowRight") {
-      rightPressed = false;
-    }
-    else if(e.key == "Left" || e.key == "ArrowLeft") {
-      leftPressed = false;
-    }
-  }
 
   function collisionDetection() {
-    for(var c=0; c<brickColumnCount; c++) {
-      for(var r=0; r<brickRowCount; r++) {
-        var b = bricks[c][r];
-        if(b.status == 1) {
-          if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
-            dy = -dy;
-            b.status = 0;
-            score += 10;
-            if(score == brickRowCount*brickColumnCount * 10) {
-              alert("YOU WIN, CONGRATULATIONS!");
-              // document.location.reload();
-              clearInterval(interval); // Needed for Chrome to end game
-              $(document).ready(function() {
-                playSnek();
-              });
-            }
-          }
-        }
-      }
-    }
+
   }
 
   function drawScore() {
@@ -190,10 +97,9 @@ var playSnek = function() {
   }
 
   document.addEventListener("keydown", keyDownHandler, false);
-  document.addEventListener("keyup", keyUpHandler, false);
 
   $back.on('click', refresh);
 
-  var interval = setInterval(draw, 10);
+  var interval = setInterval(draw, 200);
 
 }
