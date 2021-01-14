@@ -92,8 +92,10 @@ var playSnek = function() {
     drawBall();
     drawSnake();
     drawTail();
-    collisionDetection();
     drawScore();
+    collisionDetection();
+
+
   }
 
   function keyDownHandler(e) {
@@ -125,27 +127,43 @@ var playSnek = function() {
     if (snake.y < y && snake.y + snake.height > y && snake.x + snake.width > x && snake.x < x) {
       x = Math.floor(Math.random() * ((canvas.width - 20) / 20) + 1) * 20 - 10;
       y = Math.floor(Math.random() * ((canvas.height - 30) / 20) + 1) * 20 + 20;
+      for (let i = 2; i < snake.length; i++) {
+        if (x > tail[i].x && x < tail[i].x + tail[i].width && y > tail[i].y && y < tail[i].y + tail[i].height) {
+          x = Math.floor(Math.random() * ((canvas.width - 20) / 20) + 1) * 20 - 10;
+          y = Math.floor(Math.random() * ((canvas.height - 30) / 20) + 1) * 20 + 20;
+          i = 2;
+        }
+      }
       score += 10;
-      if (score >= 1860)
+      if (score >= 1860) {
+        alert("YOU WIN! Score: " + score);
+        $(document).ready(function() {
+          playSnek();
+        });
+        return
+      }
       speedUp += 1;
       if (speedUp >= 5) {
         speedUp = 0;
-        speed += 25;
+        speed -= 10;
+        console.log(speed)
       }
       snake.length++;
     }
     if (snake.y < 30 || snake.y >= canvas.height || snake.x >= canvas.width || snake.x < 0) {
       gameOver();
+      return
     }
     for (let i = 2; i < snake.length; i++) {
       if (snake.x === tail[i].x && snake.y === tail[i].y) {
         gameOver();
+        return
       }
     }
+    interval = setTimeout(draw, speed);
   }
   function gameOver () {
     alert("GAME OVER! Score: " + score);
-    clearInterval(interval);
     $(document).ready(function() {
       playSnek();
     });
@@ -161,6 +179,6 @@ var playSnek = function() {
 
   $back.on('click', refresh);
 
-  var interval = setInterval(draw, speed);
+  var interval = setTimeout(draw, speed);
 
 }
