@@ -24,20 +24,39 @@ var playSnek = function() {
   var ballRadius = 5;
   var color = 'red'
 
-  var dx = 0;
+  var dx = 20;
   var dy = 0;
 
   var snake = {
     height: 20,
     width: 20,
-    dir: '',
+    dir: 'Right',
     moved: 0,
-    length: 1,
+    length: 3,
   }
-  snake.x = (canvas.width-snake.width) / 2;
+  snake.x = 40;
   snake.y = (canvas.height-snake.height) / 2 + 15;
 
-  var tail = {};
+  var tail = {
+    1: {
+      height: 20,
+      width: 20,
+      dir: '',
+      moved: 0,
+      length: 1,
+      x: 40 ,
+      y: (canvas.height-snake.height) / 2 + 15
+    },
+    2: {
+      height: 20,
+      width: 20,
+      dir: '',
+      moved: 0,
+      length: 1,
+      x: 20,
+      y: (canvas.height-snake.height) / 2 + 15
+    }
+  };
   var score = 0;
   var speedUp = 0;
   var speed = 200;
@@ -146,7 +165,6 @@ var playSnek = function() {
       if (speedUp >= 5) {
         speedUp = 0;
         speed -= Math.floor(speed * .05);
-        console.log(speed)
       }
       snake.length++;
     }
