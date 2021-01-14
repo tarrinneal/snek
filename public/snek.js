@@ -4,7 +4,7 @@ var playSnek = function() {
   var $back = $('<button id="back">Back</button>');
   var $logo = $('#logo');
   var $title = $('title');
-  var $canvas = $('<canvas id="myCanvas" width="340" height="250"></canvas>')
+  var $canvas = $('<canvas id="myCanvas" width="300" height="210"></canvas>')
 
   $title.text('Snek!')
   $logo.text('Snek!')
@@ -145,7 +145,7 @@ var playSnek = function() {
       speedUp += 1;
       if (speedUp >= 5) {
         speedUp = 0;
-        speed -= 10;
+        speed -= Math.floor(speed * .05);
         console.log(speed)
       }
       snake.length++;
