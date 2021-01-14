@@ -1,13 +1,18 @@
 var playSnek = function() {
-  var $nav = $('#nav')
+  var $app = $('#app');
+  var $nav = $('#nav');
   var $back = $('<button id="back">Back</button>');
   var $logo = $('#logo');
   var $title = $('title');
+  var $canvas = $('<canvas id="myCanvas" width="340" height="250"></canvas>')
 
   $title.text('Snek!')
   $logo.text('Snek!')
-  $nav.html('');
+  $app.html('')
+  $nav.html('')
+  $nav.appendTo($app);
   $back.appendTo($nav);
+  $canvas.appendTo($app)
 
   var canvas = document.getElementById('myCanvas');
   var ctx = canvas.getContext('2d');
@@ -34,6 +39,8 @@ var playSnek = function() {
 
   var tail = {};
   var score = 0;
+  var speedUp = 0;
+  var speed = 200;
 
   var refresh = function() {
     document.location.reload();
@@ -119,6 +126,12 @@ var playSnek = function() {
       x = Math.floor(Math.random() * ((canvas.width - 20) / 20) + 1) * 20 - 10;
       y = Math.floor(Math.random() * ((canvas.height - 30) / 20) + 1) * 20 + 20;
       score += 10;
+      if (score >= 1860)
+      speedUp += 1;
+      if (speedUp >= 5) {
+        speedUp = 0;
+        speed += 25;
+      }
       snake.length++;
     }
     if (snake.y < 30 || snake.y >= canvas.height || snake.x >= canvas.width || snake.x < 0) {
@@ -148,6 +161,6 @@ var playSnek = function() {
 
   $back.on('click', refresh);
 
-  var interval = setInterval(draw, 200);
+  var interval = setInterval(draw, speed);
 
 }
