@@ -17,7 +17,7 @@ var playSnek = function() {
   var x = Math.floor(Math.random() * ((canvas.width - 20) / 20) + 1) * 20 - 10;
   var y = Math.floor(Math.random() * ((canvas.height - 30) / 20) + 1) * 20 + 20;
   var ballRadius = 5;
-  var color = 'blue'
+  var color = 'red'
 
   var dx = 0;
   var dy = 0;
