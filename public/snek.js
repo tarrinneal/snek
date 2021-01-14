@@ -22,13 +22,17 @@ var playSnek = function() {
   var dx = 0;
   var dy = 0;
 
-  var snakeHeight = 20;
-  var snakeWidth = 20;
-  var snakeX = (canvas.width-snakeWidth) / 2;
-  var snakeY = (canvas.height-snakeHeight) / 2 + 15;
-  var snakeDir = '';
-  var snakeMoved = 0;
+  var snake = {
+    height: 20,
+    width: 20,
+    dir: '',
+    moved: 0,
+    length: 1,
+  }
+  snake.x = (canvas.width-snake.width) / 2;
+  snake.y = (canvas.height-snake.height) / 2 + 15;
 
+  var tail = {};
   var score = 0;
 
   var refresh = function() {
@@ -45,10 +49,25 @@ var playSnek = function() {
 
   function drawSnake() {
     ctx.beginPath();
-    ctx.rect(snakeX, snakeY, snakeWidth, snakeHeight);
+    ctx.rect(snake.x, snake.y, snake.width, snake.height);
     ctx.fillStyle = "#0095DD";
     ctx.fill();
     ctx.closePath();
+  }
+
+  function drawTail() {
+    var counter = snake.length;
+    var tailClone = {...tail};
+    tail[1] = {...snake}
+    while (counter > 1) {
+      tail[counter] = tailClone[counter - 1];
+      ctx.beginPath();
+      ctx.rect(tail[counter].x, tail[counter].y, tail[counter].width, tail[counter].height);
+      ctx.fillStyle = "#0095DD";
+      ctx.fill();
+      ctx.closePath();
+      counter--;
+    }
   }
 
   function draw() {
@@ -59,50 +78,51 @@ var playSnek = function() {
     ctx.lineTo(540, 30);
     ctx.stroke();
 
-    snakeMoved = 0;
-    snakeX += dx;
-    snakeY += dy;
+    snake.moved = 0;
+    snake.x += dx;
+    snake.y += dy;
 
     drawBall();
     drawSnake();
+    drawTail();
     collisionDetection();
     drawScore();
   }
 
   function keyDownHandler(e) {
-    if (e.key == "Right" || e.key == "ArrowRight" && snakeDir !== 'Left' && snakeMoved === 0) {
+    if (e.key == "Right" || e.key == "ArrowRight" && snake.dir !== 'Left' && snake.moved === 0) {
       dx = 20;
       dy = 0;
-      snakeDir = 'Right';
-      snakeMoved = 1;
-    } else if (e.key == "Left" || e.key == "ArrowLeft" && snakeDir !== 'Right' && snakeMoved === 0) {
+      snake.dir = 'Right';
+      snake.moved = 1;
+    } else if (e.key == "Left" || e.key == "ArrowLeft" && snake.dir !== 'Right' && snake.moved === 0) {
       dx = -20;
       dy = 0;
-      snakeDir = 'Left';
-      snakeMoved = 1;
-    } else if (e.key == "Up" || e.key == "ArrowUp" && snakeDir !== 'Down' && snakeMoved === 0) {
+      snake.dir = 'Left';
+      snake.moved = 1;
+    } else if (e.key == "Up" || e.key == "ArrowUp" && snake.dir !== 'Down' && snake.moved === 0) {
       dx = 0;
       dy = -20;
-      snakeDir = 'Up';
-      snakeMoved = 1;
-    } else if (e.key == "Down" || e.key == "ArrowDown" && snakeDir !== 'Up' && snakeMoved === 0) {
+      snake.dir = 'Up';
+      snake.moved = 1;
+    } else if (e.key == "Down" || e.key == "ArrowDown" && snake.dir !== 'Up' && snake.moved === 0) {
       dx = 0;
       dy = 20;
-      snakeDir = 'Down';
-      snakeMoved = 1;
+      snake.dir = 'Down';
+      snake.moved = 1;
     }
   }
 
 
   function collisionDetection() {
-    if (snakeY < y && snakeY + snakeHeight > y && snakeX + snakeWidth > x && snakeX < x) {
+    if (snake.y < y && snake.y + snake.height > y && snake.x + snake.width > x && snake.x < x) {
       x = Math.floor(Math.random() * ((canvas.width - 20) / 20) + 1) * 20 - 10;
       y = Math.floor(Math.random() * ((canvas.height - 30) / 20) + 1) * 20 + 20;
       score += 10;
+      snake.length++;
     }
-    if (snakeY < 30 || snakeY >= canvas.height || snakeX >= canvas.width || snakeX < 0) {
+    if (snake.y < 30 || snake.y >= canvas.height || snake.x >= canvas.width || snake.x < 0) {
       alert("GAME OVER! Score: " + score);
-      // document.location.reload();
       clearInterval(interval);
       $(document).ready(function() {
         playSnek();
