@@ -1,11 +1,11 @@
-var playSnek = function() {
+var playBreck = function() {
   var $nav = $('#nav')
   var $back = $('<button id="back">Back</button>');
   var $logo = $('#logo');
   var $title = $('title');
 
-  $title.text('Snek!')
-  $logo.text('Snek!')
+  $title.text('Breck!')
+  $logo.text('Breck!')
   $nav.html('');
   $back.appendTo($nav);
 
@@ -106,7 +106,7 @@ var playSnek = function() {
       // document.location.reload();
       clearInterval(interval);
       $(document).ready(function() {
-        playSnek();
+        playBreck();
       });
 
     }
@@ -174,7 +174,7 @@ var playSnek = function() {
               // document.location.reload();
               clearInterval(interval); // Needed for Chrome to end game
               $(document).ready(function() {
-                playSnek();
+                playBreck();
               });
             }
           }

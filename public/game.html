@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-    <title>Snek!</title>
+    <title>Game!</title>
     <script src="lib/jquery.js"></script>
     <script type="text/javascript" src="snek.js"></script>
+    <script type="text/javascript" src="breck.js"></script>
     <link rel="stylesheet" href="styles.css">
     <script type="text/javascript" src="app.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -12,10 +13,16 @@
 
   <body>
     <header class="header">
-      <h1 id="logo">Snek!</h1>
+      <h1 id="logo">Game!</h1>
     </header>
-    <canvas id="myCanvas" width="540" height="600"></canvas>
-    <!-- <div id="app"></div> -->
+    <div id="app">
+      <div id="nav">
+        <!-- <button id="back">Back</button> -->
+        <button id="breck">Breck</button><button id="snek">Snek</button><br>
+      </div>
+      <canvas id="myCanvas" width="540" height="600"></canvas>
+
+    </div>
   </body>
 
 

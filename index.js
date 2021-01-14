@@ -9,7 +9,7 @@ const assetDir = path.resolve('public')
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-  res.sendFile(assetDir + '/snek.html');
+  res.sendFile(assetDir + '/game.html');
 })
 
 app.listen(port, () => {

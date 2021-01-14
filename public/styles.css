@@ -5,12 +5,9 @@ body {
   font-family: 'Goldman', 'Courier New', Courier, monospace;
 }
 #app {
-  border: white dotted;
-  height:800px;
-  width: 600px;
-  overflow: hidden;
-  margin: 0 auto;
-  background-color: #6545B2;
+  height:700px;
+  width: 540px;
+  margin: auto;
 }
 
 /*
@@ -25,6 +22,9 @@ body {
   -webkit-text-fill-color: white;
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: black;
+}
+#logo:hover {
+  cursor: pointer;
 }
 /*
 ---------------Buttons----------------
@@ -75,6 +75,7 @@ body {
   font-family: 'Goldman', 'Courier New', Courier, monospace;
   font-size: larger;
 }
+
 /*
 ---------------Canvas----------------
 */

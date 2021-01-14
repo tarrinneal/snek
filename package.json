@@ -1,7 +1,7 @@
 {
-  "name": "snek",
+  "name": "game",
   "version": "1.0.0",
-  "description": "snek",
+  "description": "game",
   "main": "index.js",
   "directories": {
     "lib": "lib"
