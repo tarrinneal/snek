@@ -87,7 +87,6 @@ var playSnek = function() {
     tail[1] = {...snake}
     while (counter <= snake.length) {
       if (tailClone[counter - 1]) {
-        console.log(counter)
         tail[counter] = tailClone[counter - 1];
         ctx.beginPath();
         ctx.rect(tail[counter].x, tail[counter].y, tail[counter].width, tail[counter].height);
@@ -96,7 +95,6 @@ var playSnek = function() {
         ctx.closePath();
         counter++;
       } else {
-        console.log('exept')
         tail[counter] = tailClone[counter - 2];
         ctx.beginPath();
         ctx.rect(tail[counter].x, tail[counter].y, tail[counter].width, tail[counter].height);
@@ -171,8 +169,6 @@ var playSnek = function() {
           i = 2;
         }
       }
-      console.log('x' + x);
-      console.log('y' + y);
       score += 10;
       if (score >= 1950) {
         alert("YOU WIN! Score: " + score);
