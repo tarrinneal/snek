@@ -5,6 +5,7 @@ body {
   font-family: 'Goldman', 'Courier New', Courier, monospace;
 }
 #app {
+  height: 99%;
   width: 540px;
   margin: auto;
 }

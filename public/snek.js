@@ -4,7 +4,7 @@ var playSnek = function() {
   var $back = $('<button id="back">Back</button>');
   var $logo = $('#logo');
   var $title = $('title');
-  var $canvas = $('<canvas id="myCanvas" width="300" height="210"></canvas>')
+  var $canvas = $('<canvas id="myCanvas" width="520" height="630"></canvas>')
 
   $title.text('Snek!')
   $logo.text('Snek!')
@@ -19,42 +19,42 @@ var playSnek = function() {
 
 
 
-  var x = Math.floor(Math.random() * ((canvas.width - 20) / 20) + 1) * 20 - 10;
-  var y = Math.floor(Math.random() * ((canvas.height - 30) / 20) + 1) * 20 + 20;
-  var ballRadius = 5;
+  var x = Math.floor(Math.random() * ((canvas.width - 40) / 40) + 1) * 40 - 20;
+  var y = Math.floor(Math.random() * ((canvas.height - 70) / 40) + 1) * 40 + 10;
+  var ballRadius = 10;
   var color = 'red'
 
-  var dx = 20;
+  var dx = 40;
   var dy = 0;
 
   var snake = {
-    height: 20,
-    width: 20,
+    height: 40,
+    width: 40,
     dir: 'Right',
     moved: 0,
     length: 3,
   }
   snake.x = 40;
-  snake.y = (canvas.height-snake.height) / 2 + 15;
+  snake.y = 30;
 
   var tail = {
     1: {
-      height: 20,
-      width: 20,
+      height: 40,
+      width: 40,
       dir: '',
       moved: 0,
       length: 1,
       x: 40 ,
-      y: (canvas.height-snake.height) / 2 + 15
+      y: 30
     },
     2: {
-      height: 20,
-      width: 20,
+      height: 40,
+      width: 40,
       dir: '',
       moved: 0,
       length: 1,
-      x: 20,
-      y: (canvas.height-snake.height) / 2 + 15
+      x: 40,
+      y: 30
     }
   };
   var score = 0;
@@ -82,17 +82,30 @@ var playSnek = function() {
   }
 
   function drawTail() {
-    var counter = snake.length;
+    var counter = 2;
     var tailClone = {...tail};
     tail[1] = {...snake}
-    while (counter > 1) {
-      tail[counter] = tailClone[counter - 1];
-      ctx.beginPath();
-      ctx.rect(tail[counter].x, tail[counter].y, tail[counter].width, tail[counter].height);
-      ctx.fillStyle = "#0095DD";
-      ctx.fill();
-      ctx.closePath();
-      counter--;
+    while (counter <= snake.length) {
+      if (tailClone[counter - 1]) {
+        console.log(counter)
+        tail[counter] = tailClone[counter - 1];
+        ctx.beginPath();
+        ctx.rect(tail[counter].x, tail[counter].y, tail[counter].width, tail[counter].height);
+        ctx.fillStyle = "#0095DD";
+        ctx.fill();
+        ctx.closePath();
+        counter++;
+      } else {
+        console.log('exept')
+        tail[counter] = tailClone[counter - 2];
+        ctx.beginPath();
+        ctx.rect(tail[counter].x, tail[counter].y, tail[counter].width, tail[counter].height);
+        ctx.fillStyle = "#0095DD";
+        ctx.fill();
+        ctx.closePath();
+        counter++;
+      }
+
     }
   }
 
@@ -119,42 +132,49 @@ var playSnek = function() {
 
   function keyDownHandler(e) {
     if (e.key == "Right" || e.key == "ArrowRight" && snake.dir !== 'Left' && snake.moved === 0) {
-      dx = 20;
+      dx = 40;
       dy = 0;
       snake.dir = 'Right';
       snake.moved = 1;
     } else if (e.key == "Left" || e.key == "ArrowLeft" && snake.dir !== 'Right' && snake.moved === 0) {
-      dx = -20;
+      dx = -40;
       dy = 0;
       snake.dir = 'Left';
       snake.moved = 1;
     } else if (e.key == "Up" || e.key == "ArrowUp" && snake.dir !== 'Down' && snake.moved === 0) {
       dx = 0;
-      dy = -20;
+      dy = -40;
       snake.dir = 'Up';
       snake.moved = 1;
     } else if (e.key == "Down" || e.key == "ArrowDown" && snake.dir !== 'Up' && snake.moved === 0) {
       dx = 0;
-      dy = 20;
+      dy = 40;
       snake.dir = 'Down';
       snake.moved = 1;
     }
   }
 
-
+  function newBall() {
+    x = Math.floor(Math.random() * ((canvas.width - 40) / 40) + 1) * 40 - 20;
+    y = Math.floor(Math.random() * ((canvas.height - 70) / 40) + 1) * 40 + 50;
+  }
+//  || x > canvas.width || y > canvas.height
   function collisionDetection() {
     if (snake.y < y && snake.y + snake.height > y && snake.x + snake.width > x && snake.x < x) {
-      x = Math.floor(Math.random() * ((canvas.width - 20) / 20) + 1) * 20 - 10;
-      y = Math.floor(Math.random() * ((canvas.height - 30) / 20) + 1) * 20 + 20;
-      for (let i = 2; i < snake.length; i++) {
-        if (x > tail[i].x && x < tail[i].x + tail[i].width && y > tail[i].y && y < tail[i].y + tail[i].height) {
-          x = Math.floor(Math.random() * ((canvas.width - 20) / 20) + 1) * 20 - 10;
-          y = Math.floor(Math.random() * ((canvas.height - 30) / 20) + 1) * 20 + 20;
+      newBall();
+      if (snake.y < y && snake.y + snake.height > y && snake.x + snake.width > x && snake.x < x) {
+        newBall();
+      }
+      for (let i = 1; i < snake.length; i++) {
+        if ((x > tail[i].x && x < tail[i].x + tail[i].width && y > tail[i].y && y < tail[i].y + tail[i].height)) {
+          newBall();
           i = 2;
         }
       }
+      console.log('x' + x);
+      console.log('y' + y);
       score += 10;
-      if (score >= 1860) {
+      if (score >= 1950) {
         alert("YOU WIN! Score: " + score);
         $(document).ready(function() {
           playSnek();
@@ -166,14 +186,15 @@ var playSnek = function() {
         speedUp = 0;
         speed -= Math.floor(speed * .05);
       }
-      snake.length++;
+      snake.length += 2;
     }
     if (snake.y < 30 || snake.y >= canvas.height || snake.x >= canvas.width || snake.x < 0) {
       gameOver();
       return
     }
-    for (let i = 2; i < snake.length; i++) {
-      if (snake.x === tail[i].x && snake.y === tail[i].y) {
+    for (let i = 3; i <= snake.length; i++) {
+      if (tail[i] === undefined ) {
+      } else if (snake.x === tail[i].x && snake.y === tail[i].y) {
         gameOver();
         return
       }
