@@ -170,7 +170,7 @@ var playSnek = function() {
         }
       }
       score += 10;
-      if (score >= 1950) {
+      if (score >= 960) {
         alert("YOU WIN! Score: " + score);
         $(document).ready(function() {
           playSnek();
