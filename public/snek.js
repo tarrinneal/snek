@@ -129,22 +129,23 @@ var playSnek = function() {
   }
 
   function keyDownHandler(e) {
-    if (e.key == "Right" || e.key == "ArrowRight" && snake.dir !== 'Left' && snake.moved === 0) {
+    console.log(e)
+    if (e.key == 'Right' || e.key == 'ArrowRight' || e.key == 'd' && snake.dir !== 'Left' && snake.moved === 0) {
       dx = 40;
       dy = 0;
       snake.dir = 'Right';
       snake.moved = 1;
-    } else if (e.key == "Left" || e.key == "ArrowLeft" && snake.dir !== 'Right' && snake.moved === 0) {
+    } else if (e.key == 'Left' || e.key == 'ArrowLeft' || e.key == 'a' && snake.dir !== 'Right' && snake.moved === 0) {
       dx = -40;
       dy = 0;
       snake.dir = 'Left';
       snake.moved = 1;
-    } else if (e.key == "Up" || e.key == "ArrowUp" && snake.dir !== 'Down' && snake.moved === 0) {
+    } else if (e.key == 'Up' || e.key == 'ArrowUp' || e.key == 'w' && snake.dir !== 'Down' && snake.moved === 0) {
       dx = 0;
       dy = -40;
       snake.dir = 'Up';
       snake.moved = 1;
-    } else if (e.key == "Down" || e.key == "ArrowDown" && snake.dir !== 'Up' && snake.moved === 0) {
+    } else if (e.key == 'Down' || e.key == 'ArrowDown' || e.key == 's' && snake.dir !== 'Up' && snake.moved === 0) {
       dx = 0;
       dy = 40;
       snake.dir = 'Down';
