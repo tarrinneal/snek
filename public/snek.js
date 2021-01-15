@@ -180,7 +180,7 @@ var playSnek = function() {
       speedUp += 1;
       if (speedUp >= 5) {
         speedUp = 0;
-        speed -= Math.floor(speed * .05);
+        speed -= Math.floor(speed * .04);
       }
       snake.length += 2;
     }
