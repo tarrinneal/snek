@@ -166,7 +166,7 @@ var playSnek = function() {
       for (let i = 1; i < snake.length; i++) {
         if ((x > tail[i].x && x < tail[i].x + tail[i].width && y > tail[i].y && y < tail[i].y + tail[i].height)) {
           newBall();
-          i = 2;
+          i = 1;
         }
       }
       score += 10;
